@@ -17,4 +17,4 @@ FOUNDATION_EXPORT const unsigned char SmartPenCoreVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <SmartPenCore/PublicHeader.h>
 
 
-#import <SmartPenCore/SmartPenService.h>
+#import <RobotPenSDK/RobotPenService.h>
