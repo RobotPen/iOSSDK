@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		20FA2B4B1CAA27F400D65D9C /* UIView+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 20FA2B491CAA27F400D65D9C /* UIView+Extension.h */; };
+		20FA2B4C1CAA27F400D65D9C /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 20FA2B4A1CAA27F400D65D9C /* UIView+Extension.m */; };
 		8076C5621B9EBD3200BE3705 /* BlePenUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 8076C5601B9EBD3200BE3705 /* BlePenUtil.h */; };
 		8076C5631B9EBD3200BE3705 /* BlePenUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8076C5611B9EBD3200BE3705 /* BlePenUtil.m */; };
 		8088D82D1B5740DF00DB2AD7 /* RobotPenSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8088D82C1B5740DF00DB2AD7 /* RobotPenSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -38,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20FA2B491CAA27F400D65D9C /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		20FA2B4A1CAA27F400D65D9C /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		8076C5601B9EBD3200BE3705 /* BlePenUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlePenUtil.h; sourceTree = "<group>"; };
 		8076C5611B9EBD3200BE3705 /* BlePenUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlePenUtil.m; sourceTree = "<group>"; };
 		8088D8271B5740DF00DB2AD7 /* RobotPenSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RobotPenSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +77,8 @@
 		8076C55F1B9EBC2F00BE3705 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				20FA2B491CAA27F400D65D9C /* UIView+Extension.h */,
+				20FA2B4A1CAA27F400D65D9C /* UIView+Extension.m */,
 				8076C5601B9EBD3200BE3705 /* BlePenUtil.h */,
 				8076C5611B9EBD3200BE3705 /* BlePenUtil.m */,
 			);
@@ -187,6 +193,7 @@
 				80DB30681B5F8643007246CD /* PointObject.h in Headers */,
 				8088D84D1B57472000DB2AD7 /* ScanDeviceDelegate.h in Headers */,
 				8088D82D1B5740DF00DB2AD7 /* RobotPenSDK.h in Headers */,
+				20FA2B4B1CAA27F400D65D9C /* UIView+Extension.h in Headers */,
 				8088D8521B5756ED00DB2AD7 /* DeviceObject.h in Headers */,
 				80AE77071B57AE4A001A004D /* ConnectStateDelegate.h in Headers */,
 				80C4BEE91B60EBE00079A9B4 /* Enums.h in Headers */,
@@ -282,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20FA2B4C1CAA27F400D65D9C /* UIView+Extension.m in Sources */,
 				8076C5631B9EBD3200BE3705 /* BlePenUtil.m in Sources */,
 				8088D8491B57452800DB2AD7 /* RobotPenService.m in Sources */,
 				80DB30691B5F8643007246CD /* PointObject.m in Sources */,
