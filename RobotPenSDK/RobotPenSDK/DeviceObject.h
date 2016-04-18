@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "Enums.h"
 
-@interface DeviceObject : NSObject
+@interface DeviceObject : NSObject<NSCoding>
 {
     NSString        *key;           //设备标识
     int             verMajor;       //设备大版本
@@ -24,7 +24,7 @@
 @property (nonatomic,assign) int verMinor;
 @property (nonatomic,assign) SceneType sceneType;  //场景类型
 @property (retain, nonatomic) CBPeripheral *peripheral;
-
+@property (strong, nonatomic) NSString *uuID;
 //获取设备名字
 -(NSString *)getName;
 

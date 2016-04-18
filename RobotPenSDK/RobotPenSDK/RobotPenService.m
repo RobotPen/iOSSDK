@@ -185,7 +185,7 @@ static RobotPenService *_this = nil;
             device.peripheral = peripheral;
             device.verMajor = (int)bytes[2];
             device.verMinor = (int)bytes[3];
-            
+            device.uuID = [peripheral.identifier UUIDString];
             //判断是否已添加到集合列队
             if (![foundPeripherals objectForKey:[device getName]]) {
                 [foundPeripherals setObject:peripheral forKey:[device getName]];

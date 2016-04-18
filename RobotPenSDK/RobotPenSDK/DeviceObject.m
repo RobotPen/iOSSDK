@@ -20,7 +20,7 @@
 @synthesize verMinor;
 @synthesize peripheral;
 @synthesize sceneType;
-
+@synthesize uuID;
 -(NSString *)getName{
     NSString *showName;
     
@@ -64,6 +64,25 @@
         default:
             return sceneHeight;
     }
+}
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeInteger:self.verMinor forKey:@"verMinor"];
+    [aCoder encodeInteger:self.verMajor forKey:@"verMajor"];
+    [aCoder encodeInteger:self.sceneType forKey:@"sceneType"];
+    [aCoder encodeObject:self.uuID forKey:@"peripheral"];
+    
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+        self.verMajor = [aDecoder decodeIntegerForKey:@"verMajor"];
+        self.verMinor = [aDecoder decodeIntegerForKey:@"verMinor"];
+        self.sceneType = [aDecoder decodeIntegerForKey:@"sceneType"];
+        self.uuID = [aDecoder decodeObjectForKey:@"peripheral"];
+        
+    }
+    return self;
 }
 
 @end
