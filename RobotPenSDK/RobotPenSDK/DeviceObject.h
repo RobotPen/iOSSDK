@@ -24,7 +24,7 @@
 @property (nonatomic,assign) int verMinor;
 @property (nonatomic,assign) SceneType sceneType;  //场景类型
 @property (retain, nonatomic) CBPeripheral *peripheral;
-@property (strong, nonatomic) NSString *uuID;
+@property (copy, nonatomic) NSString *uuID;
 //获取设备名字
 -(NSString *)getName;
 
