@@ -53,5 +53,6 @@ typedef NS_ENUM(NSInteger, SceneType) {
     A4 = 1,
     A5 = 2,
     A4_horizontal = 3,
-    A5_horizontal = 4
+    A5_horizontal = 4,
+    SIZE_10 = 5
 };

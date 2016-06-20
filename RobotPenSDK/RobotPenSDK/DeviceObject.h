@@ -13,15 +13,11 @@
 @interface DeviceObject : NSObject<NSCoding>
 {
     NSString        *key;           //设备标识
-    int             verMajor;       //设备大版本
-    int             verMinor;       //设备小版本
     NSInteger       sceneWidth;
     NSInteger       sceneHeight;
     CBPeripheral    *peripheral;
 }
 
-@property (nonatomic,assign) int verMajor;
-@property (nonatomic,assign) int verMinor;
 @property (nonatomic,assign) SceneType sceneType;  //场景类型
 @property (retain, nonatomic) CBPeripheral *peripheral;
 @property (copy, nonatomic) NSString *uuID;

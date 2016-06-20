@@ -29,19 +29,22 @@
     return [self getSceneX:0];
 }
 -(short)getSceneX:(int)showWidth{
-    short value = (short)(originalX + width / 2);
+
+    short value = (short)originalX ;
     if(value < 0){
         value = 0;
     }else if(value > width){
         value = width;
     }
-    
+    CGFloat result;
+
     if(showWidth > 0){
         //按显示宽度等比缩放
-        value = (short)((float)value * ((float)showWidth / (float)width));
+       result =  ((CGFloat)showWidth - (float)value * ((float)showWidth / (float)width));
+   
     }
-    
-    return value;
+
+    return result;
 }
 
 -(short)getSceneY{
@@ -49,14 +52,14 @@
 }
 -(short)getSceneY:(int)showHeight{
     //计算偏移量
-    short value = originalY > height?height:originalY;
-    
+    short value = originalY ;
+    CGFloat result;
     if(showHeight > 0){
         //按显示宽度等比缩放
-        value = (short)((float)value * ((float)showHeight / (float)height));
+        result = ((CGFloat)value * ((float)showHeight / (float)height));
     }
     
-    return value;
+    return result;
 }
 
 @end

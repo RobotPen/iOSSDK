@@ -10,10 +10,15 @@
 #import "BlePenUtil.h"
 
 
-#define deviceServiceUUID @"0000FE03-0000-1000-8000-00805F9B34FB"//@"180A"//
+//#define deviceServiceUUID @"0000FE03-0000-1000-8000-00805F9B34FB"//@"180A"//
+//#define deviceInfoCharacteristicUUID @"0000FFD0-0000-1000-8000-00805F9B34FB"
+//#define deviceNotifyCharacteristicUUID @"0000FFC1-0000-1000-8000-00805F9B34FB"
+//#define deviceWriteCharacteristicUUID @"0000FFC2-0000-1000-8000-00805F9B34FB"
+
+#define deviceServiceUUID @"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"//@"测试板"//
 #define deviceInfoCharacteristicUUID @"0000FFD0-0000-1000-8000-00805F9B34FB"
-#define deviceNotifyCharacteristicUUID @"0000FFC1-0000-1000-8000-00805F9B34FB"
-#define deviceWriteCharacteristicUUID @"0000FFC2-0000-1000-8000-00805F9B34FB"
+#define deviceNotifyCharacteristicUUID @"0x6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+#define deviceWriteCharacteristicUUID @"0x6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 
 @implementation RobotPenService
 @synthesize lastData = _lastData;
@@ -175,16 +180,17 @@ static RobotPenService *_this = nil;
     
     id kCBAdvDataManufacturerData = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
     if ([kCBAdvDataManufacturerData isKindOfClass:[NSData class]]) {
-        //根据广播包判断是否是数码笔
+        
+//        根据广播包判断是否是数码笔
         const char *bytes = [kCBAdvDataManufacturerData bytes];
         UInt8 oneByte =bytes[0];
         UInt8 twoByte =bytes[1];
-        if (oneByte == 0x44 && twoByte == 0x50) {
+        UInt8 threeByte = bytes[2];
+        if (oneByte == 0x60 && twoByte == 0x00 && threeByte == 0x06) {
             //发现智能笔设备
             DeviceObject *device = [[DeviceObject alloc] init];
             device.peripheral = peripheral;
-            device.verMajor = (int)bytes[2];
-            device.verMinor = (int)bytes[3];
+
             device.uuID = [peripheral.identifier UUIDString];
             //判断是否已添加到集合列队
             if (![foundPeripherals objectForKey:[device getName]]) {
@@ -299,13 +305,15 @@ static RobotPenService *_this = nil;
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    
+    
     // 当笔划过或者书写的时候 有数据
     if (error) {
         return;
     }
     
     NSData *data = characteristic.value;
-    
+ 
     BlePenUtil *blePenUtil = [[BlePenUtil alloc] init];
     NSMutableArray *pointList = [blePenUtil getPointList:currConnectDevice bleData:data];
     
@@ -313,7 +321,7 @@ static RobotPenService *_this = nil;
     if(pointList.count > 0){
         for (int i = 0;i < pointList.count; i++) {
             item = [pointList objectAtIndex:i];
-            item.sceneType = self.currConnectDevice.sceneType;
+            item.sceneType = SIZE_10;
             item.width = [self.currConnectDevice getSceneWidth];
             item.height = [self.currConnectDevice getSceneHeight];
             [self sendPotinInfoHandler:item];
@@ -321,7 +329,6 @@ static RobotPenService *_this = nil;
     }
 }
 
-//发送笔迹信息处理
 - (void)sendPotinInfoHandler:(PointObject*)point{
     if (pointChangeDelegate) {
         dispatch_async(dispatch_get_main_queue(), ^{
