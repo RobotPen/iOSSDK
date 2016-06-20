@@ -42,35 +42,30 @@ short old ;
     int i = 0;
     PointObject *item;
     
-    while(penData[i] != NULL){
+    while(penData[i]){
         if([self isPenData:penData index:i]){
             item = [PointObject alloc];
             
             item.originalY = ((penData[i+3]&0xff)<<8)|(penData[i+2]&0xff);
             item.originalX = ((penData[i+5]&0xff)<<8)|(penData[i+4]&0xff);
-            
             item.isRoute = [self isPenRoute:penData index:i];
 //            item.isSw1 = [self isPenSw1:penData index:i];
 //            item.battery = [self getBatteryInfo:penData index:i];
             item.isMove = item.isRoute && lastPointRoute;
             
             if (item.originalX > old + 1000) {
-                NSLog(@"!!!!\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                
+            } else{
+                old = item.originalX;
+                [list addObject:item];
+                lastPointRoute = item.isRoute;
             }
-            old = item.originalX;
-            
-            NSLog(@"x----%u",item.originalX);
-            NSLog(@"y----%u",item.originalY);
-
-            [list addObject:item];
-            
-            lastPointRoute = item.isRoute;
-            //打印panData
-            NSString* dataString = @"";
-            for (int n = 0; n < 8; n++) {
-                dataString = [dataString stringByAppendingString:[NSString stringWithFormat:@"%x ", penData[i+n]&0xff]];
-            }
-            NSLog(@"penData:%@",dataString);
+//            //打印panData
+//            NSString* dataString = @"";
+//            for (int n = 0; n < 8; n++) {
+//                dataString = [dataString stringByAppendingString:[NSString stringWithFormat:@"%x ", penData[i+n]&0xff]];
+//            }
+//            NSLog(@"penData:%@",dataString);
         }
         i += 8;
     }
@@ -148,34 +143,34 @@ short old ;
     }
     return result;
 }
-
-//判断是否按下按键1
--(BOOL)isPenSw1:(char *)data index:(int)i{
-    BOOL result = false;
-    if([self isPenData:data index:i]){
-        UInt8 state = data[i+1];
-        //0001 笔尖按下
-        //0010 sw1按下
-        //0011 同时按下
-        if(state == 0x82 || state == 0x83){
-            result = true;
-        }
-    }
-    return result;
-}
-
-//获取电量信息
--(BatteryState)getBatteryInfo:(char *)data index:(int)i{
-    BatteryState result = NOT;
-    if([self isPenData:data index:i]){
-        UInt8 state = data[i];
-        if(state == 0X81){
-            result = LOW;
-        }else if(state == 0x82){
-            result = GOOD;
-        }
-    }
-    return result;
-}
+//
+////判断是否按下按键1
+//-(BOOL)isPenSw1:(char *)data index:(int)i{
+//    BOOL result = false;
+//    if([self isPenData:data index:i]){
+//        UInt8 state = data[i+1];
+//        //0001 笔尖按下
+//        //0010 sw1按下
+//        //0011 同时按下
+//        if(state == 0x82 || state == 0x83){
+//            result = true;
+//        }
+//    }
+//    return result;
+//}
+//
+////获取电量信息
+//-(BatteryState)getBatteryInfo:(char *)data index:(int)i{
+//    BatteryState result = NOT;
+//    if([self isPenData:data index:i]){
+//        UInt8 state = data[i];
+//        if(state == 0X81){
+//            result = LOW;
+//        }else if(state == 0x82){
+//            result = GOOD;
+//        }
+//    }
+//    return result;
+//}
 
 @end
