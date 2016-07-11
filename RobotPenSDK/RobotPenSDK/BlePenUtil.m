@@ -24,7 +24,7 @@ static NSMutableData *mBleDataBuffer;
     
     NSData *data = [self filterBleData:device bleData:bleData];
     if(data != nil){
-        NSLog(@"bleData:%@",data);
+//        NSLog(@"bleData:%@",data);
         [mBleDataBuffer appendData:data];
     
         char* penData = [self getValidPenData:mBleDataBuffer];
@@ -42,24 +42,22 @@ short old ;
     int i = 0;
     PointObject *item;
     
-    while(penData[i]){
+    while(penData[i] != NULL){
         if([self isPenData:penData index:i]){
             item = [PointObject alloc];
             
             item.originalY = ((penData[i+3]&0xff)<<8)|(penData[i+2]&0xff);
             item.originalX = ((penData[i+5]&0xff)<<8)|(penData[i+4]&0xff);
+            item.Pressure = ((penData[i+7]&0xff)<<8)|(penData[i+6]&0xff);
             item.isRoute = [self isPenRoute:penData index:i];
 //            item.isSw1 = [self isPenSw1:penData index:i];
 //            item.battery = [self getBatteryInfo:penData index:i];
             item.isMove = item.isRoute && lastPointRoute;
             
-            if (item.originalX > old + 1000) {
-                
-            } else{
-                old = item.originalX;
-                [list addObject:item];
-                lastPointRoute = item.isRoute;
-            }
+            old = item.originalX;
+            [list addObject:item];
+            lastPointRoute = item.isRoute;
+           
 //            //打印panData
 //            NSString* dataString = @"";
 //            for (int n = 0; n < 8; n++) {

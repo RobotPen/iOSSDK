@@ -1,7 +1,5 @@
-//
 //  SmartPenService.m
 //  SmartPenCore
-//
 //  Created by Xiaoz on 15/7/16.
 //  Copyright (c) 2015年 Xiaoz. All rights reserved.
 //
@@ -186,7 +184,7 @@ static RobotPenService *_this = nil;
         UInt8 oneByte =bytes[0];
         UInt8 twoByte =bytes[1];
         UInt8 threeByte = bytes[2];
-        if (oneByte == 0x60 && twoByte == 0x00 && threeByte == 0x06) {
+        if (1) {
             //发现智能笔设备
             DeviceObject *device = [[DeviceObject alloc] init];
             device.peripheral = peripheral;
@@ -322,8 +320,10 @@ static RobotPenService *_this = nil;
         for (int i = 0;i < pointList.count; i++) {
             item = [pointList objectAtIndex:i];
             item.sceneType = SIZE_10;
+            
             item.width = [self.currConnectDevice getSceneWidth];
             item.height = [self.currConnectDevice getSceneHeight];
+            
             [self sendPotinInfoHandler:item];
         }
     }
