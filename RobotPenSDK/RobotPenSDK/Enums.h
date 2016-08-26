@@ -32,7 +32,15 @@ typedef enum {
     /**笔初始化完成**/
     PEN_INIT_COMPLETE
 }ConnectState;
-
+//连接状态
+typedef enum {
+    ERROR,
+    DATA,
+    UPDATE,
+    SUCCESS,
+    RESET,
+    
+}OTAState;
 //设备版本
 typedef NS_ENUM(NSInteger,DeviceVersion) {
     XN680 = 1,

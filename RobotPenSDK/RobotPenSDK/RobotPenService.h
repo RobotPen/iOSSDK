@@ -13,6 +13,13 @@
 #import "PointChangeDelegate.h"
 #import "DeviceObject.h"
 
+@protocol OTADelegate <NSObject>
+
+- (void)OTAUpdateState:(OTAState)state;
+- (void)OTAUpdateProgress:(CGFloat)progress;
+
+@end
+
 @interface RobotPenService : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate>{
     NSMutableData *_lastData;
     CBPeripheral *curCBPeripheral;              //当前连接的设备
@@ -24,14 +31,19 @@
     BOOL isScanning;            //是否正在扫描
     BOOL isConnected;           //是否已连接成功
     float perX,perY;            //上一个点
+   
 }
 @property (assign) id scanDeviceDelegate;
 @property (assign) id connectStateDelegate;
 @property (assign) id pointChangeDelegate;
+
 @property (nonatomic,strong) NSMutableData *lastData;
 @property (nonatomic,strong) NSMutableDictionary *foundPeripherals;//发现的外围设备
 @property (nonatomic,strong) NSMutableDictionary *characteristicDict;
 @property (nonatomic,retain) DeviceObject *currConnectDevice;
+
+@property (nonatomic, weak) id<OTADelegate> OTADelegate;
+
 
 +(id)sharePenService;
 
@@ -60,4 +72,15 @@
  获取当前连接的设备
  **/
 -(DeviceObject *)getCurrDevice;
+
+
+-(void)startOTAWithDelegate:(id<OTADelegate>)delegate;
+
+- (void)changeName:(NSString *)name;
+
+- (void)AutoConntect:(DeviceObject *)device delegate:(id<ConnectStateDelegate>)delegate;
+- (void)setAutoConnet:(int)isOpen;
+
+
+
 @end

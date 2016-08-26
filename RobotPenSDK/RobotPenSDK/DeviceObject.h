@@ -21,6 +21,11 @@
 @property (nonatomic,assign) SceneType sceneType;  //场景类型
 @property (retain, nonatomic) CBPeripheral *peripheral;
 @property (copy, nonatomic) NSString *uuID;
+
+@property (nonatomic, copy) NSString *HWStr;
+@property (nonatomic, copy) NSString *SWStr;
+@property (nonatomic, strong) NSNumber *update;
+
 //获取设备名字
 -(NSString *)getName;
 
@@ -29,5 +34,9 @@
 
 //获取场景高度
 -(NSInteger)getSceneHeight;
+
+
+
+
 
 @end

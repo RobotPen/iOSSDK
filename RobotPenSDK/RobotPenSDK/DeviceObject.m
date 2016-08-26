@@ -28,6 +28,9 @@
 -(NSString *)getName{
     NSString *showName;
     
+    if (peripheral.name == nil) {
+        return @"Deafult";
+    }
     //指定规则的名字过滤
     NSRange range = [peripheral.name rangeOfString:@"Pen"];
     if (range.location == 0 && range.length == 3) {
@@ -73,22 +76,6 @@
             return sceneHeight;
     }
 }
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-  
-    [aCoder encodeInteger:self.sceneType forKey:@"sceneType"];
-    [aCoder encodeObject:self.uuID forKey:@"peripheral"];
-    
-}
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder{
-    self = [super init];
-    if (self) {
-        
-        self.sceneType = [aDecoder decodeIntegerForKey:@"sceneType"];
-        self.uuID = [aDecoder decodeObjectForKey:@"peripheral"];
-        
-    }
-    return self;
-}
 
 @end
